@@ -135,7 +135,7 @@ public class ChromeNotifications extends CordovaPlugin {
         if (buttonIndex >= 0) {
             fullAction += "|" + buttonIndex;
         }
-        Log.d("Full Action",fullAction);
+        Log.d("Full Action","FullAction"+fullAction);
         intent.setAction(fullAction);
         getEventHandler().makeBackgroundEventIntent(intent);
         return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
