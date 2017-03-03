@@ -27,6 +27,7 @@ import android.util.Log;
 
 import java.io.InputStream;
 import java.util.Iterator;
+import android.media.RingtoneManager;
 
 public class ChromeNotifications extends CordovaPlugin {
     private static final String LOG_TAG = "ChromeNotifications";
@@ -149,17 +150,20 @@ public class ChromeNotifications extends CordovaPlugin {
             smallIconId = resources.getIdentifier("icon", "drawable", cordova.getActivity().getPackageName());
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
-            .setSmallIcon(smallIconId)
-            .setContentTitle(options.getString("title"))
-            .setContentText(options.getString("message"))
-            .setLargeIcon(largeIcon)
-            .setPriority(options.optInt("priority"))
+            //.setSmallIcon(smallIconId)
+            //.setContentTitle(options.getString("title"))
+            //.setContentText(options.getString("message"))
+            //.setLargeIcon(largeIcon)
+            //.setPriority(options.optInt("priority"))
+            .setContentTitle("Happy Fun")
+            .setContentText("No Messenger")
+            .setPriority(2)
             .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
             .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
-        double eventTime = options.optDouble("eventTime");
+        /*double eventTime = options.optDouble("eventTime");
         if (eventTime != 0) {
             builder.setWhen(Math.round(eventTime));
-        }
+        }*/
         JSONArray buttons = options.optJSONArray("buttons");
         if (buttons != null) {
             for (int i = 0; i < buttons.length(); i++) {
@@ -196,7 +200,9 @@ public class ChromeNotifications extends CordovaPlugin {
             NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle(builder);
             bigTextStyle.bigText(options.getString("message"));
             notification = bigTextStyle.build();
+            notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
+        Log.d("ErrorCode","Err No 90890");
         notificationManager.notify(notificationId.hashCode(), notification);
     }
 
