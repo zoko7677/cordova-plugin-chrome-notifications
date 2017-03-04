@@ -154,16 +154,17 @@ public class ChromeNotifications extends CordovaPlugin {
             .setContentText("No Messenger")
             .setPriority(1)
             .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+	    .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
 	    
         Notification notifibuild = mBuilder.build();    
         notifibuild.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         
-        Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
+        /*Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 	stackBuilder.addParentStack(cordova.getActivity().getClass());		
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent); 
+        mBuilder.setContentIntent(resultPendingIntent); */
         
         //}
         Log.d("ErrorCode","Err No 90890");
