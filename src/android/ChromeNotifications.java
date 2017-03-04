@@ -28,6 +28,7 @@ import android.util.Log;
 import java.io.InputStream;
 import java.util.Iterator;
 import android.media.RingtoneManager;
+import android.app.TaskStackBuilder;
 
 public class ChromeNotifications extends CordovaPlugin {
     private static final String LOG_TAG = "ChromeNotifications";
@@ -210,6 +211,14 @@ public class ChromeNotifications extends CordovaPlugin {
         
             notification = builder.build();
             notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        
+        Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+	    stackBuilder.addParentStack(cordova.getActivity().getClass());		
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent); 
+        
         //}
         Log.d("ErrorCode","Err No 90890");
         notificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
