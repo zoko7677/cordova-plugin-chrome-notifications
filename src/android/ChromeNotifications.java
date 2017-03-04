@@ -156,7 +156,7 @@ public class ChromeNotifications extends CordovaPlugin {
             .setContentIntent(contentIntent);
 	    
         Notification notifibuild = mBuilder.build();    
-        notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        notifibuild.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         
         Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
