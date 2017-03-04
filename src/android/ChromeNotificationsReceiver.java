@@ -8,10 +8,6 @@ public class ChromeNotificationsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-      ChromeNotifications.getEventHandler().handleBroadcast(context, intent);          
-      Intent LaunchIntent;      
-	  LaunchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-	  LaunchIntent.setAction("ACTION_MAIN");
-	  LaunchIntent.startActivityForResult(LaunchIntent, 1);	       
+      ChromeNotifications.getEventHandler().handleBroadcast(context, intent);  
     }
 }
