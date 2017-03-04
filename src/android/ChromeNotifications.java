@@ -138,7 +138,7 @@ public class ChromeNotifications extends CordovaPlugin {
         Log.d("Full Action","FullAction"+fullAction);
         intent.setAction(fullAction);
         getEventHandler().makeBackgroundEventIntent(intent);
-        return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
+        return PendingIntent.getBroadcast(cordova.getActivity().getCurrentFocus().getContext(), 0, intent, flags);
     }
 
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
