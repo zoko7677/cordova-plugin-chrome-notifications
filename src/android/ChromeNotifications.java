@@ -152,6 +152,7 @@ public class ChromeNotifications extends CordovaPlugin {
         }*/
         //NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
         Context context = cordova.getActivity().getCurrentFocus().getContext();
+        String pkgName = context.getPackageName();
         Intent clickIntent = context.getPackageManager().getLaunchIntentForPackage(pkgName);		    
         PendingIntent contentIntent = PendingIntent.getActivity(context, 999999, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);         
         Notification.Builder builder = new Notification.Builder(cordova.getActivity().getCurrentFocus().getContext())
