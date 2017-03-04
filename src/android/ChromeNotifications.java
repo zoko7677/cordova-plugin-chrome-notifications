@@ -141,6 +141,7 @@ public class ChromeNotifications extends CordovaPlugin {
 	intent.addCategory(Intent.CATEGORY_LAUNCHER);
 	intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getEventHandler().makeBackgroundEventIntent(intent);
         return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
     }
