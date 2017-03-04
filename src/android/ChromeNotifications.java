@@ -143,86 +143,32 @@ public class ChromeNotifications extends CordovaPlugin {
     }
 
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
-        /*Resources resources = cordova.getActivity().getResources();
-        Bitmap largeIcon = makeBitmap(options.getString("iconUrl"),
-                                      resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_width),
-                                      resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_height));
-        int smallIconId = resources.getIdentifier("notification_icon", "drawable", cordova.getActivity().getPackageName());
-        if (smallIconId == 0) {
-            smallIconId = resources.getIdentifier("icon", "drawable", cordova.getActivity().getPackageName());
-        }*/
-        //NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
+        
         Context context = cordova.getActivity().getCurrentFocus().getContext();
         String pkgName = context.getPackageName();
         Intent clickIntent = context.getPackageManager().getLaunchIntentForPackage(pkgName);		    
         PendingIntent contentIntent = PendingIntent.getActivity(context, 999999, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);         
-        Notification.Builder builder = new Notification.Builder(cordova.getActivity().getCurrentFocus().getContext())
-            //.setSmallIcon(smallIconId)
-            //.setContentTitle(options.getString("title"))
-            //.setContentText(options.getString("message"))
-            //.setLargeIcon(largeIcon)
-            //.setPriority(options.optInt("priority"))
+        Notification.Builder mBuilder = new Notification.Builder(context)
+	    .setSmallIcon(context.getApplicationInfo().icon)
             .setContentTitle("Happy Fun")
             .setContentText("No Messenger")
-            .setPriority(2)
-            //.setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
-            //.setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+            .setPriority(1)
             .setContentIntent(contentIntent);
-        /*double eventTime = options.optDouble("eventTime");
-        if (eventTime != 0) {
-            builder.setWhen(Math.round(eventTime));
-        }*/
-        /*JSONArray buttons = options.optJSONArray("buttons");
-        if (buttons != null) {
-            for (int i = 0; i < buttons.length(); i++) {
-                JSONObject button = buttons.getJSONObject(i);
-                builder.addAction(android.R.drawable.ic_dialog_info, button.getString("title"),
-                                  makePendingIntent(NOTIFICATION_BUTTON_CLICKED_ACTION, notificationId, i, PendingIntent.FLAG_CANCEL_CURRENT));
-            }
-        }*/
-        String type = options.getString("type");
-        Notification notification;
-        /*if ("image".equals(type)) {
-            NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle(builder);
-            String bigImageUrl = options.optString("imageUrl");
-            if (!bigImageUrl.isEmpty()) {
-                bigPictureStyle.bigPicture(makeBitmap(bigImageUrl, 0, 0));
-            }
-            notification = bigPictureStyle.build();
-        } else if ("list".equals(type)) {
-            NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle(builder);
-            JSONArray items = options.optJSONArray("items");
-            if (items != null) {
-                for (int i = 0; i < items.length(); i++) {
-                    JSONObject item = items.getJSONObject(i);
-                    inboxStyle.addLine(Html.fromHtml("<b>" + item.getString("title") + "</b>&nbsp;&nbsp;&nbsp;&nbsp;"
-                                                     + item.getString("message")));
-                }
-            }
-            notification = inboxStyle.build();
-        } else {*/
-            /*if ("progress".equals(type)) {
-                int progress = options.optInt("progress");
-                builder.setProgress(100, progress, false);
-            }
-            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle(builder);
-            bigTextStyle.bigText(options.getString("message"));
-            notification = bigTextStyle.build();*/
-        
-            notification = builder.build();
-            notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	    
+        Notification notifibuild = mBuilder.build();    
+        notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         
         Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-	    stackBuilder.addParentStack(cordova.getActivity().getClass());		
+	stackBuilder.addParentStack(cordova.getActivity().getClass());		
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(resultPendingIntent); 
+        mBuilder.setContentIntent(resultPendingIntent); 
         
         //}
         Log.d("ErrorCode","Err No 90890");
-        notificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId.hashCode(), notification); 
+	NotificationManager mNotificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);	
+	mNotificationManager.notify(notificationId.hashCode(), notifibuild);
     }
 
     private void updateNotification(String notificationId, JSONObject updateOptions, JSONObject originalOptions) throws JSONException {
