@@ -137,6 +137,7 @@ public class ChromeNotifications extends CordovaPlugin {
             fullAction += "|" + buttonIndex;
         }       
         intent.setAction(fullAction);
+	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         getEventHandler().makeBackgroundEventIntent(intent);
         return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
     }
@@ -166,7 +167,7 @@ public class ChromeNotifications extends CordovaPlugin {
         
         //}
         Log.d("ErrorCode","Err No 90890");
-	NotificationManager mNotificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);	
+	NotificationManager mNotificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);			
 	mNotificationManager.notify(notificationId.hashCode(), notifibuild);
     }
 
