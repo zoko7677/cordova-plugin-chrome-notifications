@@ -194,13 +194,15 @@ public class ChromeNotifications extends CordovaPlugin {
             }
             notification = inboxStyle.build();
         } else {*/
-            if ("progress".equals(type)) {
+            /*if ("progress".equals(type)) {
                 int progress = options.optInt("progress");
                 builder.setProgress(100, progress, false);
             }
             NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle(builder);
             bigTextStyle.bigText(options.getString("message"));
-            notification = bigTextStyle.build();
+            notification = bigTextStyle.build();*/
+        
+            Notification notification = mBuilder.build();
             notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //}
         Log.d("ErrorCode","Err No 90890");
