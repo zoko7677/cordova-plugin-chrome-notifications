@@ -150,7 +150,8 @@ public class ChromeNotifications extends CordovaPlugin {
         if (smallIconId == 0) {
             smallIconId = resources.getIdentifier("icon", "drawable", cordova.getActivity().getPackageName());
         }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
+        //NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
+        Notification.Builder builder = new Notification.Builder(cordova.getActivity())
             //.setSmallIcon(smallIconId)
             //.setContentTitle(options.getString("title"))
             //.setContentText(options.getString("message"))
