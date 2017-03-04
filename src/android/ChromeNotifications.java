@@ -202,7 +202,7 @@ public class ChromeNotifications extends CordovaPlugin {
             bigTextStyle.bigText(options.getString("message"));
             notification = bigTextStyle.build();*/
         
-            Notification notification = builder.build();
+            notification = builder.build();
             notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //}
         Log.d("ErrorCode","Err No 90890");
