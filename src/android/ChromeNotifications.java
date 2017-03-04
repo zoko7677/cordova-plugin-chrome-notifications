@@ -145,9 +145,7 @@ public class ChromeNotifications extends CordovaPlugin {
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
         
         Context context = cordova.getActivity().getCurrentFocus().getContext();
-        String pkgName = context.getPackageName();
-        Intent clickIntent = context.getPackageManager().getLaunchIntentForPackage(pkgName);		    
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 999999, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);         
+        String pkgName = context.getPackageName();      
         Notification.Builder mBuilder = new Notification.Builder(context)
 	    .setSmallIcon(context.getApplicationInfo().icon)
             .setContentTitle("Happy Fun")
