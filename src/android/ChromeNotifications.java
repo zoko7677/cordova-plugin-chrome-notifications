@@ -148,14 +148,20 @@ public class ChromeNotifications extends CordovaPlugin {
         //Context context = cordova.getActivity().getCurrentFocus().getContext();
 	Context context = cordova.getActivity();
         String pkgName = context.getPackageName();      
+	    
+	Intent backIntent = new Intent(context, ChromeNotificationsReceiver.class);
+        backIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);	    
+	PendingIntent resultPendingIntent = PendingIntent.getActivity(context, notificationId, backIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+	    
         Notification.Builder mBuilder = new Notification.Builder(context)
 	    .setSmallIcon(context.getApplicationInfo().icon)
             .setContentTitle("Happy Fun")
             .setContentText("No Messenger")
             .setPriority(1)
-            .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
-	    .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
-	    
+           // .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
+	   // .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+	   .setContentIntent(resultPendingIntent);
+		    
         Notification notifibuild = mBuilder.build();    
         notifibuild.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         
