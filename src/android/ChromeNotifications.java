@@ -165,17 +165,17 @@ public class ChromeNotifications extends CordovaPlugin {
         if (eventTime != 0) {
             builder.setWhen(Math.round(eventTime));
         }*/
-        JSONArray buttons = options.optJSONArray("buttons");
+        /*JSONArray buttons = options.optJSONArray("buttons");
         if (buttons != null) {
             for (int i = 0; i < buttons.length(); i++) {
                 JSONObject button = buttons.getJSONObject(i);
                 builder.addAction(android.R.drawable.ic_dialog_info, button.getString("title"),
                                   makePendingIntent(NOTIFICATION_BUTTON_CLICKED_ACTION, notificationId, i, PendingIntent.FLAG_CANCEL_CURRENT));
             }
-        }
+        }*/
         String type = options.getString("type");
         Notification notification;
-        if ("image".equals(type)) {
+        /*if ("image".equals(type)) {
             NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle(builder);
             String bigImageUrl = options.optString("imageUrl");
             if (!bigImageUrl.isEmpty()) {
@@ -193,7 +193,7 @@ public class ChromeNotifications extends CordovaPlugin {
                 }
             }
             notification = inboxStyle.build();
-        } else {
+        } else {*/
             if ("progress".equals(type)) {
                 int progress = options.optInt("progress");
                 builder.setProgress(100, progress, false);
@@ -202,8 +202,9 @@ public class ChromeNotifications extends CordovaPlugin {
             bigTextStyle.bigText(options.getString("message"));
             notification = bigTextStyle.build();
             notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        }
+        //}
         Log.d("ErrorCode","Err No 90890");
+        notificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationId.hashCode(), notification);
     }
 
