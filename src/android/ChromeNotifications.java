@@ -165,7 +165,7 @@ public class ChromeNotifications extends CordovaPlugin {
             .setPriority(2)
             //.setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
             //.setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
-            .setContentIntent(contentIntent)
+            .setContentIntent(contentIntent);
         /*double eventTime = options.optDouble("eventTime");
         if (eventTime != 0) {
             builder.setWhen(Math.round(eventTime));
