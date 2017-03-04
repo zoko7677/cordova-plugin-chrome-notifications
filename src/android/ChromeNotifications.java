@@ -135,16 +135,16 @@ public class ChromeNotifications extends CordovaPlugin {
         String fullAction = action + "|" + notificationId;
         if (buttonIndex >= 0) {
             fullAction += "|" + buttonIndex;
-        }
-        Log.d("Full Action","FullAction"+fullAction);
+        }       
         intent.setAction(fullAction);
         getEventHandler().makeBackgroundEventIntent(intent);
-        return PendingIntent.getBroadcast(cordova.getActivity().getCurrentFocus().getContext(), 0, intent, flags);
+        return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
     }
 
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
         
-        Context context = cordova.getActivity().getCurrentFocus().getContext();
+        //Context context = cordova.getActivity().getCurrentFocus().getContext();
+	Context context = cordova.getActivity();
         String pkgName = context.getPackageName();      
         Notification.Builder mBuilder = new Notification.Builder(context)
 	    .setSmallIcon(context.getApplicationInfo().icon)
