@@ -151,8 +151,8 @@ public class ChromeNotifications extends CordovaPlugin {
 	    
 	Intent backIntent = new Intent(context, ChromeNotificationsReceiver.class);
 	backIntent.setAction("ChromeNotifications.Click"+ "|" +notificationId);	
-        backIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);	    
-	PendingIntent resultPendingIntent = PendingIntent.getBroadcast(context, 0, backIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        backIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);	    
+	PendingIntent resultPendingIntent = PendingIntent.getBroadcast(context, 0, backIntent, PendingIntent.FLAG_ONE_SHOT);
 	    
         Notification.Builder mBuilder = new Notification.Builder(context)
 	    .setSmallIcon(context.getApplicationInfo().icon)
