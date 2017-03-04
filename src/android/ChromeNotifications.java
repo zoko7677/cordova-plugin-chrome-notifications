@@ -153,7 +153,7 @@ public class ChromeNotifications extends CordovaPlugin {
             .setContentTitle("Happy Fun")
             .setContentText("No Messenger")
             .setPriority(1)
-            .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+            .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
 	    .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
 	    
         Notification notifibuild = mBuilder.build();    
