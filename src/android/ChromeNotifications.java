@@ -131,13 +131,14 @@ public class ChromeNotifications extends CordovaPlugin {
     }
 
     public PendingIntent makePendingIntent(String action, String notificationId, int buttonIndex, int flags) {
-        Intent intent = new Intent(cordova.getActivity().getCurrentFocus().getContext(), ChromeNotificationsReceiver.class);
+        Intent intent = new Intent(cordova.getActivity(), ChromeNotificationsReceiver.class);
         String fullAction = action + "|" + notificationId;
         if (buttonIndex >= 0) {
             fullAction += "|" + buttonIndex;
         }       
         intent.setAction(fullAction);	
-	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);	
+	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);	
         getEventHandler().makeBackgroundEventIntent(intent);
         return PendingIntent.getBroadcast(cordova.getActivity(), 0, intent, flags);
     }
