@@ -11,7 +11,7 @@ public class ChromeNotificationsReceiver extends BroadcastReceiver {
       ChromeNotifications.getEventHandler().handleBroadcast(context, intent);          
       Intent LaunchIntent;      
 	  LaunchIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-	  LaunchIntent.setAction(this.getIntentValueString("ACTION_MAIN"));
+	  LaunchIntent.setAction("ACTION_MAIN");
 	  context.startActivityForResult(LaunchIntent, 1);	       
     }
 }
