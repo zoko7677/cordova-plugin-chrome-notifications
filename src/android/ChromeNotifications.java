@@ -151,6 +151,9 @@ public class ChromeNotifications extends CordovaPlugin {
             smallIconId = resources.getIdentifier("icon", "drawable", cordova.getActivity().getPackageName());
         }*/
         //NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
+        Context context = cordova.getActivity().getCurrentFocus().getContext();
+        Intent clickIntent = context.getPackageManager().getLaunchIntentForPackage(pkgName);		    
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 999999, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);         
         Notification.Builder builder = new Notification.Builder(cordova.getActivity().getCurrentFocus().getContext())
             //.setSmallIcon(smallIconId)
             //.setContentTitle(options.getString("title"))
@@ -160,8 +163,9 @@ public class ChromeNotifications extends CordovaPlugin {
             .setContentTitle("Happy Fun")
             .setContentText("No Messenger")
             .setPriority(2)
-            .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
-            .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+            //.setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
+            //.setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+            .setContentIntent(contentIntent)
         /*double eventTime = options.optDouble("eventTime");
         if (eventTime != 0) {
             builder.setWhen(Math.round(eventTime));
