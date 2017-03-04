@@ -142,14 +142,14 @@ public class ChromeNotifications extends CordovaPlugin {
     }
 
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
-        Resources resources = cordova.getActivity().getResources();
+        /*Resources resources = cordova.getActivity().getResources();
         Bitmap largeIcon = makeBitmap(options.getString("iconUrl"),
                                       resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_width),
                                       resources.getDimensionPixelSize(android.R.dimen.notification_large_icon_height));
         int smallIconId = resources.getIdentifier("notification_icon", "drawable", cordova.getActivity().getPackageName());
         if (smallIconId == 0) {
             smallIconId = resources.getIdentifier("icon", "drawable", cordova.getActivity().getPackageName());
-        }
+        }*/
         //NotificationCompat.Builder builder = new NotificationCompat.Builder(cordova.getActivity())
         Notification.Builder builder = new Notification.Builder(cordova.getActivity().getCurrentFocus().getContext())
             //.setSmallIcon(smallIconId)
@@ -208,7 +208,7 @@ public class ChromeNotifications extends CordovaPlugin {
         //}
         Log.d("ErrorCode","Err No 90890");
         notificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId.hashCode(), notification);
+        notificationManager.notify(notificationId.hashCode(), notification); 
     }
 
     private void updateNotification(String notificationId, JSONObject updateOptions, JSONObject originalOptions) throws JSONException {
