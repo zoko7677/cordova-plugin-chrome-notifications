@@ -145,37 +145,19 @@ public class ChromeNotifications extends CordovaPlugin {
 
     private void makeNotification(String notificationId, JSONObject options) throws JSONException {
         
-        //Context context = cordova.getActivity().getCurrentFocus().getContext();
-	Context context = cordova.getActivity();
-        String pkgName = context.getPackageName();      
-	    
-	Intent backIntent = new Intent(context, ChromeNotificationsReceiver.class);
-	backIntent.setAction("ChromeNotifications.Click"+ "|" +notificationId);	
-        backIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);	    
-	PendingIntent resultPendingIntent = PendingIntent.getBroadcast(context, 0, backIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Context context = cordova.getActivity();
+        String pkgName = context.getPackageName();      	    
 	    
         Notification.Builder mBuilder = new Notification.Builder(context)
 	    .setSmallIcon(context.getApplicationInfo().icon)
-            .setContentTitle("Happy Fun")
-            .setContentText("No Messenger")
-            .setPriority(1)
-	    .setOngoing(true)
-           // .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
-	   // .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
-	   .setContentIntent(resultPendingIntent);
-		    
+            .setContentTitle(options.getString("title"))
+            .setContentText(options.getString("message"))
+            .setPriority(1)	    
+            .setContentIntent(makePendingIntent(NOTIFICATION_CLICKED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT))
+	    .setDeleteIntent(makePendingIntent(NOTIFICATION_CLOSED_ACTION, notificationId, -1, PendingIntent.FLAG_CANCEL_CURRENT));
+	   		    
         Notification notifibuild = mBuilder.build();    
-        notifibuild.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        
-        /*Intent resultIntent = new Intent(context, cordova.getActivity().getClass());
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-	stackBuilder.addParentStack(cordova.getActivity().getClass());		
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent); */
-        
-        //}
-        Log.d("ErrorCode","Err No 90890");
+        notifibuild.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);       
 	NotificationManager mNotificationManager = (NotificationManager) cordova.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);			
 	mNotificationManager.notify(notificationId.hashCode(), notifibuild);
     }
